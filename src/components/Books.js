@@ -2,7 +2,7 @@ import React from 'react'
 import List from './List'
 
 function Books(props) {
-    // console.log(props.book);
+    const {book, handleDelete} = props
     return (
         <div id="table">
             <table>
@@ -15,7 +15,7 @@ function Books(props) {
                         </tr>
                     </thead>
                     <tbody id= "table-body">
-                        {props.book.map((bk) => <List key={bk.isbn} title={bk.title} author = {bk.author} isbn ={bk.isbn} />)}
+                        {book.map((bk) => <List key={bk.isbn} title={bk.title} author = {bk.author} isbn ={bk.isbn} handleDelete={()=> handleDelete(bk.isbn)} />)}
                     </tbody>
                 </table>
         </div>

@@ -10,12 +10,12 @@ class Forminput extends Component {
                 title : '',
                 author : '',
                 isbn : '',
-            },
+            }, 
             bookArr : [],
         }
     }
 
-    titleValue = (e) =>{
+    handleForTitleChange = (e) =>{
         this.setState({
             book:{
                 ...this.state.book,
@@ -24,7 +24,7 @@ class Forminput extends Component {
         })
     }
 
-    authorValue = (e) =>{
+    handleForAuthorChange = (e) =>{
         this.setState({
             book:{
                 ...this.state.book,
@@ -33,7 +33,7 @@ class Forminput extends Component {
         })
     }
 
-    isbnValue = (e) =>{
+    handleForIsbnChange = (e) =>{
         this.setState({
             book:{
                 ...this.state.book,
@@ -42,7 +42,7 @@ class Forminput extends Component {
         })
     }
     
-    submitBtn = (e) =>{
+    handleSubmit = (e) =>{
         e.preventDefault();
         this.setState({
             bookArr : [...this.state.bookArr, this.state.book]
@@ -50,7 +50,6 @@ class Forminput extends Component {
     }
 
     clearInput = () =>{
-        // console.log(this.state);
         this.setState({
             book : {
                 title : '',
@@ -59,20 +58,27 @@ class Forminput extends Component {
             }
         })
     }
+
+    handleDelete = (isbn)=> {
+        const updatedBookArr = this.state.bookArr.filter(book => book.isbn !== isbn )
+        this.setState({
+            bookArr : updatedBookArr
+        })
+    }
     render() {
         return (
             <>
-            <form action="" id="form" onSubmit={this.submitBtn}>
+            <form action="" id="form" onSubmit={this.handleSubmit}>
                 <label>Title</label>
-                <input type="text" name="title" placeholder='Thirukkural' value={this.state.book.title} onChange={this.titleValue} id="title"/>
+                <input type="text" name="title" placeholder='Thirukkural' value={this.state.book.title} onChange={this.handleForTitleChange} id="title"/>
                 <label>Author</label>
-                <input type="text" name="author" placeholder='Thiruvalluvar' value={this.state.book.author} onChange={this.authorValue} id="author"/>
+                <input type="text" name="author" placeholder='Thiruvalluvar' value={this.state.book.author} onChange={this.handleForAuthorChange} id="author"/>
                 <label>ISBN</label>
-                <input type="text"  placeholder='5b36' name="isbn" value={this.state.book.isbn} onChange={this.isbnValue} id="isbn"/>
+                <input type="text"  placeholder='5b36' name="isbn" value={this.state.book.isbn} onChange={this.handleForIsbnChange} id="isbn"/>
                 <input type="submit" id="submit"/>
                 
             </form>
-            <Books book = {this.state.bookArr}/>
+            <Books book = {this.state.bookArr} handleDelete={this.handleDelete} />
             </>
         )
     }
